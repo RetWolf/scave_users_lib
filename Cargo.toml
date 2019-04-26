@@ -1,0 +1,9 @@
+[package]
+name = "scave_users_lib"
+version = "0.1.0"
+authors = ["Matthew Conway <mattconway55@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+diesel = { version = "1.0.0", features = ["postgres"] }
+dotenv = "0.9.0"
