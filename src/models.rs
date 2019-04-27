@@ -1,4 +1,5 @@
-#[derive(Queryable)]
+#[derive(Queryable, GraphQLObject, Clone, Debug)]
+#[graphql(description = "A Scave User from the database")]
 pub struct User {
   pub id: i32,
   pub email: String,
@@ -8,9 +9,10 @@ pub struct User {
 
 use super::schema::users;
 
-#[derive(Insertable)]
+#[derive(Insertable, GraphQLInputObject)]
+#[graphql(description = "Input to create a Scave user")]
 #[table_name = "users"]
-pub struct NewUser<'a> {
-  pub email: &'a str,
-  pub user_password: &'a str,
+pub struct NewUser {
+  pub email: String,
+  pub user_password: String,
 }

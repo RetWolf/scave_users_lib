@@ -3,6 +3,8 @@ pub mod schema;
 
 #[macro_use]
 extern crate diesel;
+#[macro_use]
+extern crate juniper;
 
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
@@ -18,7 +20,7 @@ pub fn establish_connection() -> PgConnection {
 
 use self::models::{NewUser, User};
 
-pub fn create_user<'a>(conn: &PgConnection, email: &'a str, user_password: &'a str) -> User {
+pub fn create_user(conn: &PgConnection, email: String, user_password: String) -> User {
     use schema::users;
 
     let new_user = NewUser {
