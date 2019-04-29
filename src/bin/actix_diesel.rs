@@ -1,12 +1,12 @@
 extern crate diesel;
 extern crate scave_users_lib;
 
-use self::scave_users_lib::*;
 use actix_web::{middleware, web, App, Error, HttpResponse, HttpServer};
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 use dotenv::dotenv;
 use futures::Future;
+use scave_users_lib::*;
 use std::env;
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
