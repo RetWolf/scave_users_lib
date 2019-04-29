@@ -5,6 +5,8 @@ pub mod schema;
 extern crate diesel;
 #[macro_use]
 extern crate juniper;
+#[macro_use]
+extern crate serde_derive;
 
 use diesel::pg::PgConnection;
 use diesel::prelude::*;

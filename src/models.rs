@@ -1,4 +1,4 @@
-#[derive(Queryable, GraphQLObject, Clone, Debug)]
+#[derive(Queryable, GraphQLObject, Clone, Debug, Serialize)]
 #[graphql(description = "A Scave User from the database")]
 pub struct User {
   pub id: i32,
