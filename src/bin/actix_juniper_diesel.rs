@@ -22,6 +22,10 @@ struct Context {
 
 struct QueryRoot;
 graphql_object!(QueryRoot: Context |&self| {
+  field apiVersion() -> &str {
+    "0.1"
+  }
+
   field getUsers(&executor) -> FieldResult<Vec<User>> {
     use schema::users::dsl::*;
     let context = executor.context();
@@ -34,7 +38,7 @@ graphql_object!(QueryRoot: Context |&self| {
 type Schema = juniper::RootNode<'static, QueryRoot, EmptyMutation<Context>>;
 
 fn graphiql() -> HttpResponse {
-  let gql_editor = graphiql_source("http://127.0.0.1:8080/graphql");
+  let gql_editor = graphiql_source("/graphql");
   HttpResponse::Ok()
     .content_type("text/html; charset=utf-8")
     .body(gql_editor)
@@ -45,7 +49,7 @@ fn graphql(
   request: web::Json<GraphQLRequest>,
 ) -> impl Future<Item = HttpResponse, Error = Error> {
   web::block(move || {
-    let res = request.execute(&data.schema, &data.context); // Error here - need to pass in GraphQL context properly
+    let res = request.execute(&data.schema, &data.context);
     Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
   })
   .map_err(Error::from)
