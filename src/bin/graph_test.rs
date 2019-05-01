@@ -2,7 +2,7 @@
 extern crate juniper;
 extern crate scave_users_lib;
 
-use juniper::{FieldResult, Variables, EmptyMutation};
+use juniper::{EmptyMutation, FieldResult, Variables};
 use scave_users_lib::models::User;
 
 struct Query;
@@ -31,14 +31,18 @@ fn main() {
     "query {
       getUser {
         id
-        email
+        logins
       }
-    }", 
-    None, 
-    &Schema::new(Query, EmptyMutation::new()), 
-    &Variables::new(), 
-    &ctx
-  ).unwrap();
+    }",
+    None,
+    &Schema::new(Query, EmptyMutation::new()),
+    &Variables::new(),
+    &ctx,
+  )
+  .unwrap();
 
-  println!("{:#?}", res.as_object_value().unwrap().get_field_value("getUser"));
+  println!(
+    "{:#?}",
+    res.as_object_value().unwrap().get_field_value("getUser")
+  );
 }
